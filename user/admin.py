@@ -5,7 +5,7 @@ from user.models import User, Cliente
 
 class UserAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'username', 'status', 'full_name', 'birth_date')
+    list_display = ('id', 'username', 'full_name')
     search_fields = ('username', 'full_name', 'id')
     readonly_fields = ('id', 'username')
 
