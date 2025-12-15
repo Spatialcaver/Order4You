@@ -1,0 +1,33 @@
+
+venv/
+env/
+.venv/
+.env/
+
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+.pytest_cache/
+.tox/
+
+
+*.log
+*.sqlite3 # Se você estiver usando SQLite localmente para desenvolvimento
+
+settings_local.py
+local_settings.py
+*.json # Se estiver usando JSON para armazenar variáveis de ambiente
+
+
+media/
+
+
+static_root/
+staticfiles/
+
+
+
+.vscode/
