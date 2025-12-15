@@ -17,7 +17,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=20, unique=True, blank=False, editable=False)
     email = models.EmailField(unique=True, blank=False)
     password = models.CharField(max_length=128, blank=False, null=False)
-    perfil = models.CharField(max_length=20, unique=True, blank=False, choices=TIPOS_PERFIL)
+    perfil = models.CharField(max_length=20, unique=False, blank=False, choices=TIPOS_PERFIL)
     name = models.CharField(max_length=25, blank=False, null=False)
     last_name = models.CharField(max_length=25, blank=False, null=False)
     full_name = models.CharField(max_length=50, blank=False, null=False)
@@ -34,6 +34,6 @@ class Cliente(models.Model):
     endereco = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.user.name, self.endereco, self.telefone
+        return f"{self.user.name}, {self.endereco}, {self.telefone}"
     
 

@@ -1,7 +1,17 @@
 from django.db import models
 import uuid
 
-
+TIPO_MOVIMENTACAO_CHOICES = (
+    # ENTRADAS (Aumentam o Estoque)
+    ('COMPRA', 'Entrada por Compra'),
+    ('AJUSTE_POS', 'Ajuste Positivo/Inventário'),
+    ('DEVOLUCAO', 'Devolução de Venda/Cliente'),
+    
+    # SAÍDAS (Diminuem o Estoque)
+    ('VENDA', 'Saída por Venda/Consumo'), # Consumo via Pedido
+    ('AJUSTE_NEG', 'Ajuste Negativo/Perda'),
+    ('TRANSFERENCIA', 'Transferência (se houver locais de estoque)'),
+)
 
 UNIDADE_DE_MEDIDA = [
     ("KG", "Quilograma"),
@@ -18,15 +28,14 @@ class MateriaPrima(models.Model):
     nome = models.CharField(max_length=50, null=False, blank=False)
     unidade_medida = models.CharField(max_length=30, choices=UNIDADE_DE_MEDIDA, null=False, blank=False)
     custo_unitario = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
-    estoque_minimo = models.IntegerField(null=False, blank=False, default=1)
+    estoque_minimo = models.DecimalField(max_digits=10, decimal_places=4, null=False, blank=False, default=1)
     
     
     def __str__(self):
-        return (self.nome, self.unidade_medida)
-
+        return f"{self.nome}, {self.unidade_medida}"
 
 class Estoque(models.Model):
-    materia_prima = models.ForeignKey(MateriaPrima, on_delete=models.CASCADE)
+    materia_prima = models.OneToOneField(MateriaPrima, on_delete=models.CASCADE)
     quantidade = models.IntegerField(null=False, blank=False, default=0)
     data_atualizacao = models.DateTimeField(auto_now=True)
 
@@ -36,10 +45,10 @@ class Estoque(models.Model):
 
 
 class Movimentacao(models.Model):
-    id = models.URLField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     materia_prima = models.ForeignKey(MateriaPrima, on_delete=models.CASCADE)
     quantidade = models.IntegerField(null=False, blank=False, default=0)
-    tipo_movimentacao = models.CharField(max_length=20, choices=[("ENTRADA", "Entrada"), ("SAIDA", "Saída")], null=False, blank=False)
+    tipo_movimentacao = models.CharField(max_length=20, choices=TIPO_MOVIMENTACAO_CHOICES, null=False, blank=False)
     data_movimentacao = models.DateTimeField(auto_now=True)
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE, null=True, blank=True)
 

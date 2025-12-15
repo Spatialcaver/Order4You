@@ -18,7 +18,7 @@ admin.site.register(Produto, ProdutoAdmin)
 
 
 class ComposicaoProdutoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'produto', 'componente')
-    search_fields = ('id', 'produto', 'componente')
+    list_display = ('id', 'produto', 'materia_prima')
+    search_fields = ('id', 'produto', 'materia_prima')
 
 admin.site.register(ComposicaoProduto, ComposicaoProdutoAdmin)
