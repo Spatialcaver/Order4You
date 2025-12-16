@@ -19,7 +19,7 @@ admin.site.register(ItemPedido, ItemPedidoAdmin)
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pedido', 'metodo_pagamento', 'status_pagamento')
-    search_fields = ('id', 'pedido', 'metodo_pagamento')
+    list_display = ('id', 'pedido', 'metodo_pagamento', 'valor_pago')
+    search_fields = ('id', 'pedido')
 
 admin.site.register(Payment, PaymentAdmin)

@@ -3,8 +3,8 @@ from catalog.models import Category, Produto, ComposicaoProduto
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('Category',)
-    search_fields = ('Category',)
+    list_display = ('category',)
+    search_fields = ('category',)
 
 admin.site.register(Category, CategoryAdmin)
 

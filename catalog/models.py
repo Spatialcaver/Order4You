@@ -38,14 +38,14 @@ class Produto(models.Model):
     
     
     def __str__(self):
-        return self.id, self.nome, self.categoria, self.preco, self.is_available
+        return f'{self.id}, {self.nome}, {self.categoria}, R$, {self.preco}, {self.is_available}'
     
 
 class ComposicaoProduto(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.DecimalField(max_digits=10, decimal_places=2)
-    materia_prima = models.ForeignKey('MateriaPrima', on_delete=models.CASCADE, related_name='materia_prima', blank=False, null=False)
+    materia_prima = models.ForeignKey(MateriaPrima, on_delete=models.CASCADE, related_name='materia_prima', blank=False, null=False)
     
     
     def __str__(self):
