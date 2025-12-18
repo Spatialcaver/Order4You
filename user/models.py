@@ -14,7 +14,7 @@ TIPOS_PERFIL = [
 
 # Create your models
 class User(AbstractUser):
-    username = models.CharField(max_length=20, unique=True, blank=False, editable=False)
+    username = models.CharField(max_length=20, unique=True, blank=False, editable=True, null=False)
     email = models.EmailField(unique=True, blank=False)
     password = models.CharField(max_length=128, blank=False, null=False)
     perfil = models.CharField(max_length=20, unique=False, blank=False, choices=TIPOS_PERFIL)
@@ -24,16 +24,16 @@ class User(AbstractUser):
     
     
     def __str__(self):
-        return self.name, self.username
+        return f"{self.full_name}, {self.username}"
 
 
 class Cliente(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefone = models.CharField(max_length=15, blank=True, null=True)
-    endereco = models.TextField(blank=True, null=True)
+    nome = models.OneToOneField(User, on_delete=models.CASCADE)
+    telefone = models.CharField(max_length=15, blank=True, null=True, default= ' (00)00000-0000')
+    endereco = models.TextField(blank=True, null=True, default='Insira seu endereço completo')
 
     def __str__(self):
-        return f"{self.user.name}, {self.endereco}, {self.telefone}"
+        return f"{self.nome.full_name}, {self.endereco}, {self.telefone}"
     
 

@@ -25,5 +25,10 @@ class CustoProducao(models.Model):
     custo_operacional = models.DecimalField(max_digits=10, decimal_places=2)
     custo_total = models.DecimalField(max_digits=10, decimal_places=2)
 
+    class Meta:
+        verbose_name = "Custo de Produção"
+        verbose_name_plural = "Custos de Produção"
+
+
     def __str__(self):
         return super().__str__()

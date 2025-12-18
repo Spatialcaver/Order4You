@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'order',
     'venda',
     'estoque',
-    'catalog'
+    'catalog', 
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+
+
 
 TEMPLATES = [
     {
@@ -102,12 +106,25 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OrdersForYou API',
+    'DESCRIPTION': 'Order4You é um sistema robusto de recebimento e gestão de pedidos online, desenvolvido com Django Rest Framework (DRF). Diferente de sistemas de pedidos convencionais, ele possui um ERP embutido focado no controle rigoroso de vendas e estoque de matéria-prima',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
